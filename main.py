@@ -4,6 +4,7 @@ import numpy as np
 import google.generativeai as genai
 from PIL import Image
 import streamlit as st
+import textwrap
 
 # Initialize Streamlit components for displaying the webcam feed and AI response
 st.set_page_config(layout="wide")
@@ -13,7 +14,7 @@ with col1:
     FRAME_WINDOW = st.image([])
 with col2:
     st.title("Answer")
-    output_text_area = st.subheader("")
+    output_text_area = st.empty()
 
 # Initialize output text
 output_text = ""
@@ -119,7 +120,8 @@ while run:
 
     # Display the AI response in the Streamlit app
     if output_text:
-        output_text_area.text(output_text)
+        wrapped_text = textwrap.fill(output_text, width=60)
+        output_text_area.text(wrapped_text)
 
 # Release the webcam and close the window
 webcam.release()
